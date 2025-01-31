@@ -176,17 +176,11 @@ pattern_string = 'FAAA'
 
 #---------- generation loop ----------#
 
-# centers_list = []
+centers_list = []
 
-# for n in track(range(num_structs)):
-#         struct = Structure(size, radius, dist_temp, angle_temp)
-#         generator = StructureGenerator(struct, pattern)
-#         generator.generate_to_vf(vf)
+for n in track(range(num_structs)):
+        struct = Structure(size, radius, dist_temp, angle_temp)
+        generator = StructureGenerator(struct, pattern)
+        generator.generate_to_vf(vf)
 
-#         centers_list.append(np.hstack([struct.centers, np.ones([len(struct.centers), 1]) * radius]))
-# make_rvefile(centers_list, size[0], data_dir,
-#          file_name=datetime.today().strftime('%m%d%y') + pattern_string + str(vf*10)[0],
-#          header_info=[vf, pattern_string, min_dist],
-#          pixel_center=True,
-#          postfix_prefix=datetime.today().strftime('%m%d%y') + pattern_string + str(vf*10)[0])
-
+        centers_list.append(np.hstack([struct.centers, np.ones([len(struct.centers), 1]) * radius]))
