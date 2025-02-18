@@ -165,11 +165,16 @@ percent_high_angle = 0.1
 
 #---------- generation pattern ----------#
 dist_temp, angle_temp = get_templates(size, radius, min_dist, close_dist)
-pattern = [FarPlacement(min_dist, percent_far),
-            AlignedClosePlacement(min_dist, close_dist, percent_high_angle),
-            AlignedClosePlacement(min_dist, close_dist, percent_high_angle),
-            AlignedClosePlacement(min_dist, close_dist, percent_high_angle)]
+
 pattern_string = 'FAAA'
+
+placement_mapping = {
+    'F': lambda: FarPlacement(min_dist, percent_far),
+    'C': lambda: ClosePlacement(min_dist, close_dist),
+    'A': lambda: AlignedClosePlacement(min_dist, close_dist, percent_high_angle),
+}
+
+pattern = [placement_mapping[char]() for char in pattern_string]
 
 # placement params: FarPlacement(min_dist, percent_far), ClosePlacement(min_dist),... 
 # ...AlignedClosePlacement(min_dist, close_dist, percent_high_angle)
