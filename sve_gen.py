@@ -1,7 +1,7 @@
 """Main FRC SVE Generation Script"""
 
-# og author: Daniel Hoover (dhoover9@gmail.com)
-# edited by Rachel Hur starting from 08/01/2024
+# author: Daniel Hoover (dhoover9@gmail.com)
+# edited by me (jhur64@gatech.edu) starting from 08_01_24
 
 import os
 import numpy as np
