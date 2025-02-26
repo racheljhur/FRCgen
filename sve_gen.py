@@ -12,7 +12,7 @@ from rich.progress import track
 from pathlib import Path
 from abc import ABC, abstractmethod
 
-from structures import *
+from classes import *
 
 data_dir = Path(os.getcwd()) / "data"
 os.makedirs(data_dir, exist_ok=True)
