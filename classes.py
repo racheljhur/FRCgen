@@ -122,3 +122,15 @@ class StructureGenerator:
 
 def circshift(template, point):
     return np.roll(template, point, axis=(0, 1))
+
+def get_templates(size, radius, min_dist, close_dist):
+    dist_temp = np.zeros(size)
+    angle_temp = np.zeros(size)
+    center = np.array((int(size[0] / 2), int(size[1] / 2)))
+    for point, val in np.ndenumerate(dist_temp):
+        dist = np.linalg.norm(point - center) - radius
+        dist_temp[point] = dist
+        if dist > min_dist and dist < close_dist:
+            diff = np.abs(point - center)
+            angle_temp[point] = np.rad2deg(np.arctan2(diff[0], diff[1]))
+    return [np.fft.fftshift(dist_temp), np.fft.fftshift(angle_temp)]
