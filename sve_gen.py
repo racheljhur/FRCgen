@@ -50,3 +50,5 @@ for n in track(range(num_structs)):
 
         centers_list.append(np.hstack([struct.centers, np.ones([len(struct.centers), 1]) * radius]))
 
+fiber_centers = np.vstack(centers_list)
+np.save(data_dir / f"{pattern_string}_{num_structs}_centers.npy", fiber_centers)
