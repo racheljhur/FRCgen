@@ -1,6 +1,6 @@
 """Main FRC SVE Generation Script"""
 
-# author: Daniel Hoover (dhoover9@gmail.com)
+# author: Daniel Hoover (dhoovr@gmail.com)
 # edited by me (jhur64@gatech.edu) starting from 08_01_24
 
 import os
