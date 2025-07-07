@@ -157,7 +157,7 @@ def get_templates(size, radius, min_dist, close_dist):
             angle_temp[point] = np.rad2deg(np.arctan2(diff[0], diff[1]))
     return [np.fft.fftshift(dist_temp), np.fft.fftshift(angle_temp)]
 
-
+#--- for micros with even dimensions ---#
 
 def make_circle(radius, grid_size):
     """Create a binary circle centered in a square grid"""
@@ -169,7 +169,7 @@ def make_circle(radius, grid_size):
     return shape
 
 def create_binary_image(centers, circle, grid_size):
-    """Create a binary image by placing circles at specified centers with wrapping"""
+    """Create a binary image using fiber centers"""
     image = np.zeros((grid_size, grid_size), dtype=np.uint8)
 
     for center in centers:
@@ -177,8 +177,8 @@ def create_binary_image(centers, circle, grid_size):
         shifted_circle = np.roll(np.roll(circle, x_shift, axis=0), y_shift, axis=1)
         image += shifted_circle
 
-    # Ensure the image remains binary (values are either 0 or 1)
     image = np.clip(image, 0, 1)
+    # rotate for aligned micros
     image = np.rot90(image, k=1)
 
     return image
