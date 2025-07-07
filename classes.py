@@ -1,11 +1,32 @@
 import numpy as np
+from pathlib import Path
+import os
 from abc import ABC, abstractmethod
-import copy
+import matplotlib.pyplot as plt
+import torch
+from rich.progress import track
 
+def make_circle_og(radius, size):
+    assert len(np.unique(size)) == 1
+    size = size[0]
+    assert radius < size
+    assert size % 2 != 0
+    shape = np.zeros((size, size))
+    center_loc = int((size - 1) / 2)
+    for i in range(size):
+        for j in range(size):
+            if np.square(i-center_loc) + np.square(j-center_loc) <= np.square(radius):
+                shape[i, j] = 1
+    return shape
+
+def make_circle_zero_shift(radius, size):
+    return np.fft.fftshift(make_circle_og(radius, size)).astype(int)
+
+#  generation classes/functions
 class NoCandidates(Exception):
     """Raise when the set of candidate points is zero."""
     def __init__(self, message=f"len(candidates) <= 0"):
-        super().__init__(message)
+            super().__init__(message)
 
 class Structure:
     """Contain structure and tools for respective structure."""
@@ -29,7 +50,7 @@ class Structure:
     def update_dist_map(self, point):
         point_dist_map = circshift(self.dist_temp, point)
         dist_map_stack = np.stack((self.dist_map, point_dist_map), axis=-1)
-        self.dist_map = np.min(dist_map_stack, axis=-1)
+        self.dist_map = np.min(dist_map_stack, axis=-1)  ## check numpy docs. This might be bad
 
     def update_angle_map(self, point):
         point_angle_map = circshift(self.angle_temp, point)
@@ -51,12 +72,13 @@ class Structure:
 
     def copy(self):
         return copy.copy(self)
+        
 
 class Placement(ABC):
     """Provide tools for placing new circles."""
     def __init__(self, min_dist):
         self.min_dist = min_dist
-
+    
     @abstractmethod
     def get_map(self, struct):
         pass
@@ -110,7 +132,7 @@ class StructureGenerator:
         while self.struct.get_vf() < vf:
             try:
                 self.struct.place(self.placement_pattern[current_pattern_index])
-            except NoCandidates:
+            except(NoCandidates):
                 if permit_low_vf:
                     break
                 else:
@@ -134,3 +156,29 @@ def get_templates(size, radius, min_dist, close_dist):
             diff = np.abs(point - center)
             angle_temp[point] = np.rad2deg(np.arctan2(diff[0], diff[1]))
     return [np.fft.fftshift(dist_temp), np.fft.fftshift(angle_temp)]
+
+
+
+def make_circle(radius, grid_size):
+    """Create a binary circle centered in a square grid"""
+    y, x = np.ogrid[:grid_size, :grid_size]
+    center = (grid_size - 1) / 2
+    mask = (x - center) ** 2 + (y - center) ** 2 <= radius ** 2
+    shape = np.zeros((grid_size, grid_size), dtype=np.uint8)
+    shape[mask] = 1
+    return shape
+
+def create_binary_image(centers, circle, grid_size):
+    """Create a binary image by placing circles at specified centers with wrapping"""
+    image = np.zeros((grid_size, grid_size), dtype=np.uint8)
+
+    for center in centers:
+        x_shift, y_shift = np.array(center, dtype=np.int32).flatten()
+        shifted_circle = np.roll(np.roll(circle, x_shift, axis=0), y_shift, axis=1)
+        image += shifted_circle
+
+    # Ensure the image remains binary (values are either 0 or 1)
+    image = np.clip(image, 0, 1)
+    image = np.rot90(image, k=1)
+
+    return image
