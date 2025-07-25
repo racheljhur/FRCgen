@@ -1,8 +1,4 @@
 """Main FRC SVE Generation Script"""
-
-# author: Daniel Hoover (dhoovr@gmail.com)
-# edited by Jihye Hur (jhur64@gatech.edu) starting from 08_01_24
-
 # MIT License
 
 # Copyright (c) 2025 Jihye Hur
