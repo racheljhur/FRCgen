@@ -34,30 +34,58 @@ import torch
 from rich.progress import track
 from classes import *
 
-#---- generation parameters ----# 
-size = (257, 257)
-radius = 11.29294274
-vf = 0.25
-min_dist = radius + 2
-close_dist = min_dist +2
-percent_far = 0.1
-percent_high_angle = 0.1
-
-circle = make_circle_zero_shift(radius, size)
-
-dist_temp, angle_temp = get_templates(size, radius, min_dist, close_dist)
-pattern = [FarPlacement(min_dist, percent_far)]
-pattern_seq = 'F25'
-num_structs = 650
-
+#---- Global Parameters for Generation ----# 
 '''
+The edge length of the domain considered in the study was 112 um.
+The radius was (112 / 751) * 30 \approx 5 um.
+
+THINGS THAT YOU WILL NEED TO CHANGE EXPLICITLY:
+(1) DOMAIN SIZE >> (d,d)
+(2) FIBER RADIUS >> 30
+(3) TARGET FIBER VOLUME FRACTION >> 0.30
+(4) MINIMUM PERMISSIBLE DISTANCE B/W FIBER EDGES >> fiber_radius + 2
+(5) CLOSE CLUSTERING DISTANCES >> minimum_distance + 2
+(6) PERCENTILE OF FAR DISTANCES >> 0.1 (corresponds to the top 99th percentile)
+(7) PERCENTILE OF HORIZONTAL ALIGNMENT >> 0.1 (corresponds to the top 99th percentile)
+'''
+
+size = (751, 751) # the dimensions here must be odd
+radius = 30
+vf = 0.30 
+min_dist = radius + 2
+close_dist = min_dist + 2 
+percent_far = 0.1 
+percent_high_angle = 0.1 
+num_structs = 650
+pattern_seq = 'F25' # this is for my filename later
+
+#---- Core Generation Functions ----# 
+'''
+USAGE. If I want an SVE with very close clustering at a volume fraction of 30%,
+specify as follows:
+vf=0.30, and pattern=[ClosePlacement(min_dist, close_dist),
+                          ClosePlacement(min_dist, close_dist),
+                          ClosePlacement(min_dist, close_dist)]
+
+These are the available function calls and how to specify them in your 'pattern' array:
 FarPlacement(min_dist, percent_far)
 ClosePlacement(min_dist, close_dist),
 AlignedClosePlacement(min_dist, close_dist, percent_high_angle)
 '''
 
+# Initialize required functions
+circle = make_circle_zero_shift(radius, size)
+dist_temp, angle_temp = get_templates(size, radius, min_dist, close_dist)
+
+# Specifiy the type of clustering you want in your SVE
+pattern = [FarPlacement(min_dist, percent_far)] 
+
 structs = np.zeros([num_structs, size[0], size[1]])
+# Initialize centers array 
+# (this was mainly for the FE simulations, since the tool we used takes in fiber centers)
 centers_list = []
+
+# Main loop to generate n number of SVEs
 for n in track(range(num_structs)):
     struct_temp = np.zeros(size)
     struct = Structure(size, radius, dist_temp, angle_temp)
@@ -67,14 +95,17 @@ for n in track(range(num_structs)):
     for center in centers:
         structs[n, :, :] += np.roll(circle, center, axis=(0, 1))
 
-centers_array = np.array(centers_list, dtype=object)
-print('checking centers_array shape:', centers_array.shape)
+centers_array = np.array(centers_list, dtype=object) # specifying dtype here because python gets annoyed when saving npy arrays of inconsistent number of columns
 
-#---- if even dimensions are needed... ----#
+# write results
+# np.save(f'micros/{pattern_seq}/{pattern_seq}_{num_structs}_structs.npy', structs)
+# print('checking centers_array shape:', centers_array.shape)
 
-# new dims
+#---- If even dimensions are needed ----#
+
+# Set new dims
 UNIT_CELL_SIZE = 0.000112099824327958 # d value in um
-GRID_SIZE = 256
+GRID_SIZE = 750
 RADIUS = int((4.925824504424278e-06 / UNIT_CELL_SIZE) * GRID_SIZE)  # r (um)/d (um)* d (pixel)
 
 circle = make_circle(RADIUS, GRID_SIZE)
@@ -82,13 +113,13 @@ circle = make_circle(RADIUS, GRID_SIZE)
 binary_images = []
 for n in range(len(centers_array)):
     centers = centers_array[n] # get the x,y coords for n^th micro
-
     binary_image = create_binary_image(centers, circle, GRID_SIZE)
     binary_images.append(binary_image)
 
 structs_new = np.stack(binary_images)
 
-print("Number of binary images created:", len(binary_images))
-print("Shape of the stacked array:", structs_new.shape)
+# print("Number of binary images created:", len(binary_images))
+# print("Shape of the stacked array:", structs_new.shape)
 
+# write results
 # np.save(f'micros/{pattern_seq}/{pattern_seq}_{num_structs}_structs.npy', structs_new)
