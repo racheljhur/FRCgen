@@ -60,8 +60,8 @@ pattern_seq = 'F25' # this is for my filename later
 USAGE. If I want an SVE with very close clustering at a volume fraction of 30%,
 specify as follows:
 vf=0.30, and pattern=[ClosePlacement(min_dist, close_dist),
-                          ClosePlacement(min_dist, close_dist),
-                          ClosePlacement(min_dist, close_dist)]
+                      ClosePlacement(min_dist, close_dist),
+                      ClosePlacement(min_dist, close_dist)]
 
 These are the available function calls and how to specify them in your 'pattern' array:
 FarPlacement(min_dist, percent_far)
