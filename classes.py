@@ -1,3 +1,4 @@
+'''Core Generation Functions'''
 import numpy as np
 from pathlib import Path
 import os
@@ -22,7 +23,6 @@ def make_circle_og(radius, size):
 def make_circle_zero_shift(radius, size):
     return np.fft.fftshift(make_circle_og(radius, size)).astype(int)
 
-#  generation classes/functions
 class NoCandidates(Exception):
     """Raise when the set of candidate points is zero."""
     def __init__(self, message=f"len(candidates) <= 0"):
@@ -72,7 +72,6 @@ class Structure:
 
     def copy(self):
         return copy.copy(self)
-        
 
 class Placement(ABC):
     """Provide tools for placing new circles."""
