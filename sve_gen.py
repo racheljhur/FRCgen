@@ -46,11 +46,10 @@ Usage example:
 pattern = [FarPlacement(min_dist, percent_far), 
            ClosePlacement(min_dist, close_dist)]
 '''
-# Initialize required functions
+
 circle = make_circle_zero_shift(radius, size)
 dist_temp, angle_temp = get_templates(size, radius, min_dist, close_dist)
 
-# Specifiy the type of clustering you want in your SVE
 pattern = [FarPlacement(min_dist, percent_far)] 
 
 structs = np.zeros([num_structs, size[0], size[1]])
