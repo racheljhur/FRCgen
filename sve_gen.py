@@ -10,8 +10,9 @@ from classes import *
 
 #---- Global Parameters for Generation ----# 
 '''
+
 The edge length of the domain considered in the study was 112 um.
-The radius was (112 / 751) * 30 \approx 5 um.
+The radius was (112 um / 75 pixels) * 11 pixels ≈ 16 um.
 
 THINGS THAT YOU WILL NEED TO CHANGE EXPLICITLY:
 (1) DOMAIN SIZE >> (d,d)
@@ -21,6 +22,7 @@ THINGS THAT YOU WILL NEED TO CHANGE EXPLICITLY:
 (5) CLOSE CLUSTERING DISTANCES >> minimum_distance + 2
 (6) PERCENTILE OF FAR DISTANCES >> 0.1 (corresponds to the top 99th percentile)
 (7) PERCENTILE OF HORIZONTAL ALIGNMENT >> 0.1 (corresponds to the top 99th percentile)
+
 '''
 
 size = (751, 751) # the dimensions here must be odd
@@ -33,20 +35,17 @@ percent_high_angle = 0.1
 num_structs = 650
 pattern_seq = 'F25' # this is for my filename later
 
-#---- Core Generation Functions ----# 
+# Call core generation functions
 '''
-USAGE. If I want an SVE with very close clustering at a volume fraction of 30%,
-specify as follows:
-vf=0.30, and pattern=[ClosePlacement(min_dist, close_dist),
-                      ClosePlacement(min_dist, close_dist),
-                      ClosePlacement(min_dist, close_dist)]
-
-These are the available function calls and how to specify them in your 'pattern' array:
+Placement options:
 FarPlacement(min_dist, percent_far)
 ClosePlacement(min_dist, close_dist),
 AlignedClosePlacement(min_dist, close_dist, percent_high_angle)
-'''
 
+Usage example:
+pattern = [FarPlacement(min_dist, percent_far), 
+           ClosePlacement(min_dist, close_dist)]
+'''
 # Initialize required functions
 circle = make_circle_zero_shift(radius, size)
 dist_temp, angle_temp = get_templates(size, radius, min_dist, close_dist)
