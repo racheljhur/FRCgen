@@ -2,8 +2,8 @@
 import numpy as np
 import h5py
 
-# dat = '900_15_sves.h5'
-evs = '900_15_extremevals.h5'
+# dat = "900_15_sves.h5"
+evs = "900_15_extremevals.h5"
 
 # Class names (access keys)
 seq = ["F30", "FA30", "FAAA30", "FC30", "FCCC30",
