@@ -1,4 +1,4 @@
-Python scripts and datasets used for the paper Computational Protocols for Studying Damage Initiation in Unidirectional Fiber-Reinforced Polymer Matrix Composites.
+This repository contains research code associated with the protocols detailed in Hur *et al.*'s *Computational Protocols for Studying Damage Initiation in Unidirectional Fiber-Reinforced Polymer Matrix Composites*.
 
 Use sve_gen.py to generate micros at specified dimensions, fiber radii, fiber volume fractions, and inter-fiber dispersions, clustering, and alignment.
 
