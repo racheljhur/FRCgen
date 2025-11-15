@@ -1,4 +1,4 @@
-"""Main FRC SVE Generation Script"""
+""" Generate SVEs """
 import numpy as np
 from pathlib import Path
 import os
