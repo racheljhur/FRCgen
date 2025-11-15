@@ -1,4 +1,4 @@
-Python scripts and datasets used for the work detailed in Computational Protocols for Studying Damage Initiation in Unidirectional Fiber-Reinforced Polymer Matrix Composites.
+Python scripts and datasets used for the paper Computational Protocols for Studying Damage Initiation in Unidirectional Fiber-Reinforced Polymer Matrix Composites.
 
 Use sve_gen.py to generate micros at specified dimensions, fiber radii, fiber volume fractions, and inter-fiber dispersions, clustering, and alignment.
 
