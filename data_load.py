@@ -1,4 +1,4 @@
-''' Load in .h5 file containing 900 (751,751) sized SVEs per class'''
+''' Read .h5 files '''
 import numpy as np
 import h5py
 
