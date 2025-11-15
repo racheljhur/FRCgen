@@ -2,7 +2,7 @@ This repository contains research code associated with the protocols detailed in
 
 **Code Usage Instructions**
 
-Use sve_gen.py to generate micros at specified dimensions, fiber radii, fiber volume fractions, and inter-fiber dispersions, clustering, and alignment. Further instructions are provided in the python script. The data employed for the convergence studies in the paper is also available in this repository as 900_15_extremevals.h5. This contains 900x56 extreme values per target microstructure considered in the study. Use data_load.py and 900_15_extremevals.h5 to read the file. You may access the extreme values for each microstructure using the provided dictionary keys.
+Use sve_gen.py to generate micros at specified dimensions, fiber radii, fiber volume fractions, and inter-fiber dispersions, clustering, and alignment. Further instructions are provided in the mentioned python script. The data employed for the convergence studies in the paper is also available in this repository as 900_15_extremevals.h5. This contains 900x56 extreme values per target microstructure. Use data_load.py and 900_15_extremevals.h5 to read the file. You may access the extreme values for each microstructure using the provided dictionary keys.
 
 J. Hur, D. Hoover, K.M. Ballard, V. Varshney, C. Przybyla, S.R. Kalidindi, *Computational Protocols for the Study of Damage Initiation in Unidirectional Fiber-Reinforced Polymer Matrix Composites*, Integr Mater Manuf Innov. (2025), https://doi.org/10.1007/s40192-025-00429-y.
 
