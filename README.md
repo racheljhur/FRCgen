@@ -2,7 +2,7 @@ This repository contains research code associated with the protocols detailed in
 
 **Code Usage Instructions**
 
-Use sve_gen.py to generate microstructures (referred to as statistical volume elements (SVEs) in the article) at specified dimensions, fiber radii, fiber volume fractions, and inter-fiber dispersions, clustering, and alignment. Further instructions are provided in the mentioned python script. The data employed for the convergence studies in the paper is also available in this repository as 900_15_extremevals.h5. This contains 900x56 extreme values per target microstructure. Use data_load.py to read the file. The user can access the extreme values for each microstructure using the provided dictionary keys.
+Use sve_gen.py to generate microstructure samples (referred to as statistical volume elements (SVEs) in the article) at specified dimensions, fiber radii, fiber volume fractions, and inter-fiber dispersions, clustering, and alignment. Further instructions are provided in the mentioned python script. The data employed for the convergence studies in the paper is also available in this repository as 900_15_extremevals.h5. This contains 900x56 extreme values per target microstructure (referred to as representative volume elements (RVEs) in the article). Use data_load.py to read the file. The user can access the extreme values for each microstructure using the provided dictionary keys.
 
 J. Hur, D. Hoover, K.M. Ballard, V. Varshney, C. Przybyla, S.R. Kalidindi, *Computational Protocols for the Study of Damage Initiation in Unidirectional Fiber-Reinforced Polymer Matrix Composites*, Integr Mater Manuf Innov. (2025), https://doi.org/10.1007/s40192-025-00429-y.
 
