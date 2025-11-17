@@ -67,29 +67,29 @@ for n in track(range(num_structs)):
         structs[n, :, :] += np.roll(circle, center, axis=(0, 1))
 
 # centers_array = np.array(centers_list, dtype=object) # Specifying dtype here because python gets annoyed when saving npy arrays of inconsistent number of columns
+# print("Shape of centers array:", centers_array.shape)
 
 # Write results
-# np.save(f'micros/{pattern_seq}/{pattern_seq}_{num_structs}_structs.npy', structs)
-# print('checking centers_array shape:', centers_array.shape)
+np.save(f'micros/{pattern_seq}/{pattern_seq}_{num_structs}_structs.npy', structs)
 
 # If even dimensions are needed
 # Setting new dimensions
-UNIT_CELL_SIZE = 0.000112099824327958 # d value in um
-GRID_SIZE = 750
-RADIUS = int((4.925824504424278e-06 / UNIT_CELL_SIZE) * GRID_SIZE)  # r (um)/d (um)* d (pixel)
+# UNIT_CELL_SIZE = 0.000112099824327958 # d value in um
+# GRID_SIZE = 750
+# RADIUS = int((4.925824504424278e-06 / UNIT_CELL_SIZE) * GRID_SIZE)  # r (um)/d (um)* d (pixel)
 
-circle = make_circle(RADIUS, GRID_SIZE)
+# circle = make_circle(RADIUS, GRID_SIZE)
 
-binary_images = []
-for n in range(len(centers_array)):
-    centers = centers_array[n] # get the x,y coords for n^th SVE
-    binary_image = create_binary_image(centers, circle, GRID_SIZE)
-    binary_images.append(binary_image)
+# binary_images = []
+# for n in range(len(centers_array)):
+#     centers = centers_array[n] # get the x,y coords for n^th SVE
+#     binary_image = create_binary_image(centers, circle, GRID_SIZE)
+#     binary_images.append(binary_image)
 
-structs_new = np.stack(binary_images)
+# structs_new = np.stack(binary_images)
 
 # print("Number of binary images created:", len(binary_images))
 # print("Shape of the stacked array:", structs_new.shape)
 
-# write results
+# Write results
 # np.save(f'micros/{pattern_seq}/{pattern_seq}_{num_structs}_structs.npy', structs_new)
