@@ -51,8 +51,9 @@ dist_temp, angle_temp = get_templates(size, radius, min_dist, close_dist)
 pattern = [FarPlacement(min_dist, percent_far)] 
 
 structs = np.zeros([num_structs, size[0], size[1]])
-## Initialize centers array 
-## This was mainly for the FE simulations, since the tool we used takes in fiber centers.
+# Initialize centers array 
+# This was mainly for the FE simulations, since the tool we used takes in fiber centers.
+# Uncomment if centers are needed.
 # centers_list = []
 
 # Main loop to generate n number of SVEs
