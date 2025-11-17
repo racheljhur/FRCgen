@@ -68,7 +68,7 @@ for n in track(range(num_structs)):
 
 # centers_array = np.array(centers_list, dtype=object) # Specifying dtype here because python gets annoyed when saving npy arrays of inconsistent number of columns
 
-# write results
+# Write results
 # np.save(f'micros/{pattern_seq}/{pattern_seq}_{num_structs}_structs.npy', structs)
 # print('checking centers_array shape:', centers_array.shape)
 
