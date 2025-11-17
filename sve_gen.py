@@ -70,7 +70,7 @@ for n in track(range(num_structs)):
 # print("Shape of centers array:", centers_array.shape)
 
 # Write results
-np.save(f'micros/{pattern_seq}/{pattern_seq}_{num_structs}_structs.npy', structs)
+np.save(f"micros/{pattern_seq}/{pattern_seq}_{num_structs}_structs.npy", structs)
 
 # If even dimensions are needed
 # Setting new dimensions
@@ -92,4 +92,4 @@ np.save(f'micros/{pattern_seq}/{pattern_seq}_{num_structs}_structs.npy', structs
 # print("Shape of the stacked array:", structs_new.shape)
 
 # Write results
-# np.save(f'micros/{pattern_seq}/{pattern_seq}_{num_structs}_structs.npy', structs_new)
+# np.save(f"micros/{pattern_seq}/{pattern_seq}_{num_structs}_structs.npy", structs_new)
