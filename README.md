@@ -8,4 +8,5 @@ If you encounter any issues, please contact me at jhur64@gatech.edu.
 
 **Article**
 
+
 J. Hur, D. Hoover, K.M. Ballard, V. Varshney, C. Przybyla, S.R. Kalidindi, *Computational Protocols for the Study of Damage Initiation in Unidirectional Fiber-Reinforced Polymer Matrix Composites*, Integr Mater Manuf Innov. (2025), https://doi.org/10.1007/s40192-025-00429-y.
